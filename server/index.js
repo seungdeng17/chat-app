@@ -26,6 +26,8 @@ io.on('connection', (socket) => {
 
         socket.emit('message', { user: `Admin`, text: `${user.name}님 환영합니다.` });
         socket.broadcast.to(user.channel).emit('message', { user: `Admin`, text: `${user.name}님이 대화에 참여했습니다.` });
+
+        io.to(user.channel).emit('channelData', { channel: user.channel, users: getUsersInChannel(user.channel) });
     });
 
     socket.on('sendMessage', (message, callback) => {
@@ -41,6 +43,7 @@ io.on('connection', (socket) => {
 
         if (user) {
             io.to(user.channel).emit('message', { user: `Admin`, text: `${user.name}님이 퇴장했습니다.` });
+            io.to(user.channel).emit('channelData', { channel: user.channel, users: getUsersInChannel(user.channel) });
         }
     })
 });

@@ -31,9 +31,11 @@ let socket;
 const Chat = () => {
   const history = useHistory();
   const { name, channel } = useParams();
+  const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = "https://taekao-talk.herokuapp.com/";
+  // const ENDPOINT = "https://taekao-talk.herokuapp.com/";
+  const ENDPOINT = "http://localhost:5000/";
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -45,17 +47,20 @@ const Chat = () => {
       }
     });
 
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
+    });
+
+    socket.on("channelData", ({ users }) => {
+      setUsers(users);
+      console.log(users);
+    });
+
     return () => {
       socket.emit("disconnecting");
       socket.off();
     };
   }, [ENDPOINT, name, channel, history]);
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setMessages((messages) => [...messages, message]);
-    });
-  }, []);
 
   const sendMessage = () => {
     if (message) {
