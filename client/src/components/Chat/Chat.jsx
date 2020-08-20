@@ -14,10 +14,10 @@ const ChatOuter = styled.div`
   height: 100vh;
 `;
 
-const ChatInner = styled.form`
+const ChatInner = styled.div`
   width: 400px;
   height: 700px;
-  border: 1px solid #000;
+  border: 1px solid #95afc0;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ const Chat = () => {
     });
 
     return () => {
-      socket.emit("disconnect");
+      socket.emit("disconnecting");
       socket.off();
     };
   }, [ENDPOINT, name, channel, history]);
@@ -56,9 +56,7 @@ const Chat = () => {
     });
   }, []);
 
-  const sendMessage = (event) => {
-    event.preventDefault();
-
+  const sendMessage = () => {
     if (message) {
       socket.emit("sendMessage", message, () => setMessage(""));
     }
@@ -67,9 +65,9 @@ const Chat = () => {
   return (
     <ChatOuter>
       <ChatInner>
-        <ChatInfoBar />
-        <MessageList />
-        <ChatInput />
+        <ChatInfoBar {...{ channel }} />
+        <MessageList {...{ name, messages }} />
+        <ChatInput {...{ message, setMessage, sendMessage }} />
       </ChatInner>
     </ChatOuter>
   );
