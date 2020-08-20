@@ -24,8 +24,8 @@ io.on('connection', (socket) => {
 
         socket.join(user.channel);
 
-        socket.emit('message', { user: `${user.channel} - Admin`, text: `${user.name}님, 환영합니다.` });
-        socket.broadcast.to(user.channel).emit('message', { user: `${user.channel} - Admin`, text: `${user.name}님이 대화에 참여했습니다.` });
+        socket.emit('message', { user: `Admin`, text: `${user.name}님 환영합니다.` });
+        socket.broadcast.to(user.channel).emit('message', { user: `Admin`, text: `${user.name}님이 대화에 참여했습니다.` });
     });
 
     socket.on('sendMessage', (message, callback) => {
@@ -36,11 +36,11 @@ io.on('connection', (socket) => {
         callback();
     });
 
-    socket.on('disconnect', () => {
+    socket.on('disconnecting', () => {
         const user = removeUser(socket.id);
 
         if (user) {
-            io.to(user.channel).emit('message', { user: `${user.channel} - Admin`, text: `${user.name}님이 퇴장했습니다.` });
+            io.to(user.channel).emit('message', { user: `Admin`, text: `${user.name}님이 퇴장했습니다.` });
         }
     })
 });

@@ -1,9 +1,6 @@
 const users = [];
 
 const addUser = ({ id, name, channel }) => {
-    name = name.trim().toLowerCase();
-    channel = channel.trim().toLowerCase();
-
     const existingUser = users.find((user) => user.channel === channel && user.name === name);
 
     if (!name || !channel) return { error: '이름과 채널을 입력하세요.' };
