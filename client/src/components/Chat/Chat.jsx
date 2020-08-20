@@ -33,7 +33,7 @@ const Chat = () => {
   const { name, channel } = useParams();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = "http://localhost:5000";
+  const ENDPOINT = "https://taekao-talk.herokuapp.com/";
 
   useEffect(() => {
     socket = io(ENDPOINT);
