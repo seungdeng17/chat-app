@@ -8,22 +8,36 @@ const JoinWrap = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #2f3640;
 `;
 
 const JoinForm = styled.form`
   width: 400px;
   height: 700px;
-  border: 1px solid #000;
+  border: 1px solid #535c68;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #fed330;
 `;
 
-const Title = styled.h1`
-  font-size: 30px;
+const Title = styled.div`
+  width: 200px;
+  height: 200px;
+  font-size: 50px;
   margin-bottom: 25px;
+  background-color: #3b1e1e;
+  color: #fed330;
+  border-radius: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    width: 165px;
+  }
 `;
 
 const Input = styled.input`
@@ -32,6 +46,7 @@ const Input = styled.input`
   margin-bottom: 20px;
   text-indent: 10px;
   box-sizing: border-box;
+  outline: none;
 `;
 
 const Button = styled.button`
@@ -50,10 +65,12 @@ const Join = () => {
   return (
     <JoinWrap onSubmit={handleSubmit(onSubmit)}>
       <JoinForm>
-        <Title>Chat App</Title>
+        <Title>
+          <h1>Taekao Talk</h1>
+        </Title>
         <Input type="text" placeholder="Name" name="name" ref={register} />
         <Input type="text" placeholder="Channel" name="channel" ref={register} />
-        <Button type="submit">Join</Button>
+        <Button type="submit">JOIN</Button>
       </JoinForm>
     </JoinWrap>
   );

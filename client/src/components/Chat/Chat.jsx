@@ -12,6 +12,7 @@ const ChatOuter = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #2f3640;
 `;
 
 const ChatInner = styled.div`
