@@ -53,7 +53,6 @@ const Chat = () => {
 
     socket.on("channelData", ({ users }) => {
       setUsers(users);
-      console.log(users);
     });
 
     return () => {
@@ -71,7 +70,7 @@ const Chat = () => {
   return (
     <ChatOuter>
       <ChatInner>
-        <ChatInfoBar {...{ channel }} />
+        <ChatInfoBar {...{ channel, users, name }} />
         <MessageList {...{ name, messages }} />
         <ChatInput {...{ message, setMessage, sendMessage }} />
       </ChatInner>
