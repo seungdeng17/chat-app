@@ -34,8 +34,7 @@ const Chat = () => {
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  // const ENDPOINT = "https://taekao-talk.herokuapp.com/";
-  const ENDPOINT = "http://localhost:5000/";
+  const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
   useEffect(() => {
     socket = io(ENDPOINT);
