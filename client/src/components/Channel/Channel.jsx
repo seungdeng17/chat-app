@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import io from "socket.io-client";
 import styled from "styled-components";
+
+let socket;
 
 const ChatOuter = styled.div`
   display: flex;
@@ -21,6 +24,18 @@ const ChatInner = styled.div`
 `;
 
 const Channel = () => {
+  const ENDPOINT = process.env.REACT_APP_ENDPOINT;
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+
+    socket.emit("channel");
+
+    socket.on("channelList", (data) => {
+      console.log(data);
+    });
+  });
+
   return (
     <ChatOuter>
       <ChatInner></ChatInner>

@@ -55,7 +55,7 @@ const Chat = () => {
     });
 
     return () => {
-      socket.emit("disconnecting");
+      socket.emit("disconnecting", { channel });
       socket.off();
     };
   }, [ENDPOINT, name, channel, history]);
