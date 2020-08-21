@@ -31,12 +31,13 @@ io.on('connection', (socket) => {
         io.to(user.channel).emit('channelData', { channel: user.channel, users: getUsersInChannel(user.channel) });
 
         addChannel(channel, io.sockets.adapter.rooms[channel]);
+        const channels = getChannels();
+        io.emit('channelList', [...channels]);
     });
 
     socket.on('channel', () => {
         const channels = getChannels();
-
-        socket.emit('channelList', [...channels]);
+        io.emit('channelList', [...channels]);
     });
 
     socket.on('sendMessage', (message, callback) => {
@@ -58,6 +59,8 @@ io.on('connection', (socket) => {
         socket.leave(channel);
 
         removeChannel(channel, io.sockets.adapter.rooms[channel]);
+        const channels = getChannels();
+        io.emit('channelList', [...channels]);
     })
 });
 
