@@ -74,7 +74,7 @@ const Join = () => {
 
   const handleClick = () => {
     if (!inputName) return alert("이름을 입력하세요.");
-    history.push(`/channel`);
+    history.push(`/channel/${inputName}`);
   };
 
   return (
@@ -83,11 +83,11 @@ const Join = () => {
         <Title>
           <h1>Taekao Talk</h1>
         </Title>
-        <Input type="text" placeholder="Name" name="name" ref={register} value={inputName} onChange={handleChange} />
-        <Input type="text" placeholder="Channel" name="channel" ref={register} />
-        <Button type="submit">JOIN</Button>
+        <Input type="text" placeholder="이름" name="name" ref={register} value={inputName} onChange={handleChange} />
+        <Input type="text" placeholder="채널" name="channel" ref={register} />
+        <Button type="submit">대화방 참여 / 만들기</Button>
         <Button type="button" onClick={handleClick}>
-          Channel List
+          채널 목록
         </Button>
       </JoinForm>
     </JoinWrap>

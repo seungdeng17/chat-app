@@ -15,7 +15,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Join} />
           <Route path='/chat/:name/:channel' component={Chat} />
-          <Route path='/channel' component={Channel} />
+          <Route path='/channel/:name' component={Channel} />
         </Switch>
       </Router>
     </>

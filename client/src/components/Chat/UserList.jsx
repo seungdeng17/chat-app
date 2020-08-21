@@ -43,7 +43,14 @@ const UserName = styled.p`
     width: 6px;
     height: 6px;
   }
-  span {
+  .my-name {
+    width: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+  .my-name-icon {
     margin-left: 6px;
     font-size: 12px;
     font-weight: 500;
@@ -69,8 +76,9 @@ const UserList = ({ users, name, isOpen, setOpen }) => {
     <UserListWrap ref={userListEl}>
       {users.map((user, i) => (
         <UserName key={i}>
-          <img src={onlineIcon} alt="onlineIcon" /> {user.name}
-          {user.name === name && <span>(나)</span>}
+          <img src={onlineIcon} alt="onlineIcon" />
+          <span className="my-name">{user.name}</span>
+          {user.name === name && <span className="my-name-icon">(나)</span>}
         </UserName>
       ))}
     </UserListWrap>

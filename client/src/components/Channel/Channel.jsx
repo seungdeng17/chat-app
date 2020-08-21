@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import io from "socket.io-client";
 import styled from "styled-components";
+
+import ChannelInfoBar from "./ChannelInfoBar";
+import ChannelList from "./ChannelList";
 
 let socket;
 
@@ -24,6 +28,7 @@ const ChatInner = styled.div`
 `;
 
 const Channel = () => {
+  const { name } = useParams();
   const [channelData, setChannelData] = useState([]);
 
   const ENDPOINT = process.env.REACT_APP_ENDPOINT;
@@ -36,11 +41,18 @@ const Channel = () => {
     socket.on("channelList", (data) => {
       setChannelData(data);
     });
+
+    return () => {
+      socket.off();
+    };
   }, [ENDPOINT]);
 
   return (
     <ChatOuter>
-      <ChatInner></ChatInner>
+      <ChatInner>
+        <ChannelInfoBar />
+        <ChannelList {...{ channelData, name }} />
+      </ChatInner>
     </ChatOuter>
   );
 };

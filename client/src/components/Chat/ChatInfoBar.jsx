@@ -48,7 +48,7 @@ const ChatInfoBar = ({ channel, users, name }) => {
           참가자 정보
         </span>
       </div>
-      <Link className="infoBar-item" to="/">
+      <Link className="infoBar-item" to={`/channel/${name}`}>
         ❌
       </Link>
       {isOpen && <UserList {...{ users, name, isOpen, setOpen }} />}
