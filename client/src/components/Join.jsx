@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -53,13 +53,28 @@ const Button = styled.button`
   width: 250px;
   height: 40px;
   box-sizing: border-box;
+  margin-bottom: 20px;
+  :last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const Join = () => {
   const history = useHistory();
+  const [inputName, setInputName] = useState("");
   const { handleSubmit, register } = useForm();
+
   const onSubmit = ({ name, channel }) => {
+    if (!name || !channel) return alert("이름과 채널을 입력하세요.");
+    setInputName(name);
     history.push(`/chat/${name}/${channel}`);
+  };
+
+  const handleChange = ({ target: { value } }) => setInputName(value);
+
+  const handleClick = () => {
+    if (!inputName) return alert("이름을 입력하세요.");
+    history.push(`/channel`);
   };
 
   return (
@@ -68,9 +83,12 @@ const Join = () => {
         <Title>
           <h1>Taekao Talk</h1>
         </Title>
-        <Input type="text" placeholder="Name" name="name" ref={register} />
+        <Input type="text" placeholder="Name" name="name" ref={register} value={inputName} onChange={handleChange} />
         <Input type="text" placeholder="Channel" name="channel" ref={register} />
         <Button type="submit">JOIN</Button>
+        <Button type="button" onClick={handleClick}>
+          Channel List
+        </Button>
       </JoinForm>
     </JoinWrap>
   );
