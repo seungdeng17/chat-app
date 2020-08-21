@@ -16,8 +16,6 @@ const ChatInfoBarWrap = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: #7ed6df;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
   font-size: 16px;
   font-weight: 600;
   .infoBar-item {

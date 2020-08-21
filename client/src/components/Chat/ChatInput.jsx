@@ -19,11 +19,9 @@ const ChatInputWrap = styled.form`
   input {
     text-indent: 20px;
     width: 80%;
-    border-bottom-left-radius: 4px;
   }
   button {
     width: 20%;
-    border-bottom-right-radius: 4px;
     background-color: #f9ca24;
   }
 `;
