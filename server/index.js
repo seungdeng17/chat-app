@@ -4,6 +4,7 @@ const socketio = require('socket.io');
 const cors = require('cors');
 
 const { addUser, removeUser, getUser, getUsersInChannel } = require('./users');
+const { addChannel, removeChannel, getChannels } = require('./channels');
 
 const router = require('./router');
 
@@ -28,6 +29,14 @@ io.on('connection', (socket) => {
         socket.broadcast.to(user.channel).emit('message', { user: `Admin`, text: `${user.name}님이 대화에 참여했습니다.` });
 
         io.to(user.channel).emit('channelData', { channel: user.channel, users: getUsersInChannel(user.channel) });
+
+        addChannel(channel, io.sockets.adapter.rooms[channel]);
+    });
+
+    socket.on('channel', () => {
+        const channels = getChannels();
+
+        socket.emit('channelList', [...channels]);
     });
 
     socket.on('sendMessage', (message, callback) => {
@@ -38,13 +47,17 @@ io.on('connection', (socket) => {
         callback();
     });
 
-    socket.on('disconnecting', () => {
+    socket.on('disconnecting', ({ channel }) => {
         const user = removeUser(socket.id);
 
         if (user) {
             io.to(user.channel).emit('message', { user: `Admin`, text: `${user.name}님이 퇴장했습니다.` });
             io.to(user.channel).emit('channelData', { channel: user.channel, users: getUsersInChannel(user.channel) });
         }
+
+        socket.leave(channel);
+
+        removeChannel(channel, io.sockets.adapter.rooms[channel]);
     })
 });
 
