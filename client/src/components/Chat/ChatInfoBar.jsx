@@ -53,7 +53,7 @@ const ChatInfoBar = ({ channel, users, name }) => {
       <Link className="infoBar-item" to="/">
         ❌
       </Link>
-      {isOpen && <UserList {...{ users, name }} />}
+      {isOpen && <UserList {...{ users, name, isOpen, setOpen }} />}
     </ChatInfoBarWrap>
   );
 };

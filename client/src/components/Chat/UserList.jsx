@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import onlineIcon from "@assets/images/onlineIcon.png";
@@ -50,9 +50,23 @@ const UserName = styled.p`
   }
 `;
 
-const UserList = ({ users, name }) => {
+const UserList = ({ users, name, isOpen, setOpen }) => {
+  const userListEl = useRef();
+
+  const handleClickOutside = ({ target }) => {
+    console.log(target);
+    if (isOpen && !userListEl.current.contains(target)) setOpen(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <UserListWrap>
+    <UserListWrap ref={userListEl}>
       {users.map((user, i) => (
         <UserName key={i}>
           <img src={onlineIcon} alt="onlineIcon" /> {user.name}
