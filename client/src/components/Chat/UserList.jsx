@@ -32,7 +32,7 @@ const UserListWrap = styled.div`
 `;
 
 const UserName = styled.p`
-  width: 100%;
+  width: 140px;
   height: 40px;
   margin-left: 20px;
   display: flex;
