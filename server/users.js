@@ -7,7 +7,6 @@ const addUser = ({ id, name, channel }) => {
     if (existingUser) return { error: '채널에 중복된 이름이 있어요.' };
 
     const user = { id, name, channel };
-
     users.push(user);
 
     return { user };
@@ -15,7 +14,6 @@ const addUser = ({ id, name, channel }) => {
 
 const removeUser = (id) => {
     const index = users.findIndex((user) => user.id === id);
-
     if (index !== -1) return users.splice(index, 1)[0];
 }
 
